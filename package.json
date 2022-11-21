@@ -27,6 +27,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/sequelize": "^9.0.0",
     "@types/ejs": "^3.1.1",
+    "chance": "^1.1.9",
     "ejs": "^3.1.8",
     "nestjs-telegraf": "^2.6.2",
     "pg": "^8.8.0",

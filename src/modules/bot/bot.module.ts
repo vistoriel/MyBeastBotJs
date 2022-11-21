@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { SequelizeModule } from '@nestjs/sequelize'
 import { TelegrafModule } from 'nestjs-telegraf'
 import { DatabaseModule } from '../database/database.module'
+import { BeastModel } from '../database/models/beast.model'
 import { InfoWidget } from './widgets/info/info.widget'
+import { SpawnWidget } from './widgets/spawn/spawn.widget'
 
 @Module({
   imports: [
@@ -12,9 +15,13 @@ import { InfoWidget } from './widgets/info/info.widget'
       }),
       inject: [ConfigService]
     }),
-    DatabaseModule
+    DatabaseModule,
+    SequelizeModule.forFeature([BeastModel])
   ],
   controllers: [],
-  providers: [InfoWidget],
+  providers: [
+    InfoWidget, 
+    SpawnWidget
+  ]
 })
 export class BotModule {}
