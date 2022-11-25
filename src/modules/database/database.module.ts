@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { SequelizeModule } from '@nestjs/sequelize'
-import { BeastService } from './beast.service'
 import { BeastModel } from './models/beast.model'
+import { BeastService } from './services/beast.service'
 
 @Module({
   imports: [

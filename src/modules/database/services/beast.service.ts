@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
-import { BeastModel } from './models/beast.model'
-import { getRandomInteger } from 'src/utils/math'
+import { BeastModel } from '../../database/models/beast.model'
 import { chance } from 'src/utils/math'
 
 @Injectable()
