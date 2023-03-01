@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
-import { SequelizeModule } from '@nestjs/sequelize'
-import { BeastModel } from './models/beast.model'
-import { BeastService } from './services/beast.service'
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { BeastModel } from './models/beast.model';
+import { BeastService } from './services/beast.service';
 
 @Module({
   imports: [
@@ -15,14 +15,14 @@ import { BeastService } from './services/beast.service'
         password: configService.get<string>('BD_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         autoLoadModels: true,
-        models: [BeastModel]
+        models: [BeastModel],
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
-    SequelizeModule.forFeature([BeastModel])
+    SequelizeModule.forFeature([BeastModel]),
   ],
   controllers: [],
   providers: [BeastService],
-  exports: [BeastService]
+  exports: [BeastService],
 })
 export class DatabaseModule {}

@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common'
-import { chance } from 'src/utils/math'
+import { Injectable } from '@nestjs/common';
+import { chance } from 'src/utils/math';
 
 const beasts = [
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-eTUNQjRqTvTtMEbBCZKlJQsA/image.webp',
@@ -17,8 +17,8 @@ const beasts = [
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-hGROz5dXElBwZHSJehvhXMu4/image.webp',
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-COkMzd1DzndWlek4Em6U2hxb/image.webp',
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-a6JOLC6lm2yX86RgOOp2SHjD/image.webp',
-  'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-JKEC7FfYs4qcXdRLnCchSiUb/image.webp'
-]
+  'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-JKEC7FfYs4qcXdRLnCchSiUb/image.webp',
+];
 
 const drop = [
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-7UiOLqvAihlv71I411QOB5C9/image.webp',
@@ -27,19 +27,19 @@ const drop = [
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-tIAXzJPqRsgtih7LlmLDXsXo/image.webp',
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-7ApRQE9hDaH4DUHjod51i5kr/image.webp',
   'https://openai-labs-public-images-prod.azureedge.net/user-lb4SamTVdVnZ3GkP9vs6x3is/generations/generation-3L1jHaTNGKIrMqtV6XY9geY6/image.webp',
-]
+];
 
 @Injectable()
 export class ImageService {
   get default(): string {
-    return 'https://www.rabrotech.com/upload/default/image-not-found.png'
+    return 'https://www.rabrotech.com/upload/default/image-not-found.png';
   }
 
   async generateBeastImage(): Promise<string> {
-    return chance.pickone(beasts)
+    return chance.pickone(beasts);
   }
 
   getDropImage(): string {
-    return chance.pickone(drop)
+    return chance.pickone(drop);
   }
 }

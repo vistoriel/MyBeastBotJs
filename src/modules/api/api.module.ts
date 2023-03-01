@@ -3,6 +3,6 @@ import { ImageService } from './services/image.service';
 
 @Module({
   providers: [ImageService],
-  exports: [ImageService]
+  exports: [ImageService],
 })
 export class ApiModule {}
