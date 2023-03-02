@@ -6,14 +6,18 @@ import { ApiModule } from '@api/api.module';
 import { DatabaseModule } from '@database/database.module';
 import { BeastModel } from '@database/models';
 import { DuelWidget, InfoWidget, SpawnWidget } from './widgets';
+import { SessionService } from '../middlewares/chat-session/session.service';
+import { MiddlewaresModule } from '../middlewares/middlewares.module';
 
 @Module({
   imports: [
     TelegrafModule.forRootAsync({
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: async (configService: ConfigService, sessionService: SessionService) => ({
         token: configService.get<string>('BOT_TOKEN'),
+        middlewares: [sessionService.middleware()]
       }),
-      inject: [ConfigService],
+      imports: [DatabaseModule, MiddlewaresModule],
+      inject: [ConfigService, SessionService],
     }),
     ApiModule,
     DatabaseModule,

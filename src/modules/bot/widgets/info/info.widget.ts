@@ -5,20 +5,20 @@ import { BeastModel } from 'src/modules/database/models/beast.model';
 import { CallbackDataFactory } from 'src/utils/keyboard';
 import { renderView } from 'src/utils/render';
 import { Context } from 'telegraf';
-import { BeastService } from '../../../database/services/beast.service';
+import { DataService } from '../../../database/services/data.service';
 import { getGeneralKeyboard, getStatKeyboard } from './info.keyboards';
 
 @Update()
 export class InfoWidget {
   constructor(
     @InjectModel(BeastModel) private beastModel: typeof BeastModel,
-    private beastService: BeastService,
+    private dataService: DataService,
     private imageService: ImageService,
   ) {}
 
   @Command('beast')
   async startCommand(@Ctx() ctx: Context) {
-    const beast = await this.beastService.findByUserAndChat(ctx.from.id, ctx.chat.id);
+    const beast = await this.dataService.findByUserAndChat(ctx.from.id, ctx.chat.id);
     if (!beast) {
       await ctx.reply(await renderView('info', 'failed', {}));
     }
@@ -38,7 +38,7 @@ export class InfoWidget {
       return;
     }
 
-    const beast = await this.beastService.findById(callbackData.data.beastId);
+    const beast = await this.dataService.findById(callbackData.data.beastId);
     if (!beast) {
       await ctx.answerCbQuery('Цього чудовиська вже не існує');
       return;
@@ -58,7 +58,7 @@ export class InfoWidget {
       return;
     }
 
-    const beast = await this.beastService.findById(callbackData.data.beastId);
+    const beast = await this.dataService.findById(callbackData.data.beastId);
     if (!beast) {
       await ctx.answerCbQuery('Цього чудовиська вже не існує');
       return;

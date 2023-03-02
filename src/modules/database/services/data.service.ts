@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { BeastModel } from '../../database/models/beast.model';
+import { BeastModel } from '../models/beast.model';
 import { chance } from 'src/utils/math';
+import { SessionModel } from '@database/models';
 
 @Injectable()
-export class BeastService {
-  constructor(@InjectModel(BeastModel) private beastModel: typeof BeastModel) {}
+export class DataService {
+  constructor(
+    @InjectModel(BeastModel) public beastModel: typeof BeastModel,
+    @InjectModel(SessionModel) public sessionModel: typeof SessionModel
+  ) {}
 
   async findById(id: number): Promise<BeastModel> {
     return this.beastModel.findOne({ where: { id } });

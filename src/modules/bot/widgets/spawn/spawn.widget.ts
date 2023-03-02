@@ -1,6 +1,6 @@
 import { InjectModel } from '@nestjs/sequelize';
 import { Action, Command, Ctx, Update } from 'nestjs-telegraf';
-import { BeastService } from '../../../database/services/beast.service';
+import { DataService } from '../../../database/services/data.service';
 import { BeastModel } from 'src/modules/database/models/beast.model';
 import { CallbackDataFactory, chance, renderView } from 'src/utils';
 import { Context } from 'telegraf';
@@ -11,13 +11,13 @@ import { ImageService } from 'src/modules/api/services/image.service';
 export class SpawnWidget {
   constructor(
     @InjectModel(BeastModel) private beastModel: typeof BeastModel,
-    private beastService: BeastService,
+    private dataService: DataService,
     private imageService: ImageService,
   ) {}
 
   @Command('spawn')
   async spawnCommand(@Ctx() ctx: Context) {
-    const beast = await this.beastService.spawn(ctx.chat.id, await this.imageService.generateBeastImage());
+    const beast = await this.dataService.spawn(ctx.chat.id, await this.imageService.generateBeastImage());
     await ctx.replyWithPhoto(beast.image, {
       caption: await renderView('spawn', 'prompt', { beast }),
       reply_markup: getTameKeyboard(beast.id),
@@ -27,14 +27,14 @@ export class SpawnWidget {
 
   @Action(CallbackDataFactory.filter('spawn', 'tame'))
   async tameCallback(@Ctx() ctx: Context) {
-    const userBeast = await this.beastService.findByUserAndChat(ctx.callbackQuery.from.id, ctx.chat.id);
+    const userBeast = await this.dataService.findByUserAndChat(ctx.callbackQuery.from.id, ctx.chat.id);
     if (userBeast) {
       await ctx.answerCbQuery('У тебе вже є чудовисько');
       return;
     }
 
     const callbackData = CallbackDataFactory.parse(ctx.callbackQuery.data);
-    const beast = await this.beastService.findById(callbackData.data.beastId);
+    const beast = await this.dataService.findById(callbackData.data.beastId);
     if (!beast) throw Error('lol');
 
     if (chance.bool({ likelihood: beast.tameChance * 100 })) {
@@ -51,7 +51,7 @@ export class SpawnWidget {
 
   @Command('drop')
   async dropCommand(@Ctx() ctx: Context) {
-    this.beastService.drop(ctx.chat.id);
+    this.dataService.drop(ctx.chat.id);
     await ctx.replyWithPhoto(this.imageService.getDropImage(), {
       caption: await renderView('spawn', 'drop', {}),
       parse_mode: 'HTML',
