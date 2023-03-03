@@ -16,6 +16,7 @@ import { SessionModel } from './models';
         password: configService.get<string>('BD_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         autoLoadModels: true,
+        logging: false,
         models: [BeastModel, SessionModel],
       }),
       inject: [ConfigService],

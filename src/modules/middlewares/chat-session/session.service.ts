@@ -13,7 +13,7 @@ export class SessionService {
       const chatSession = await this.findOrCreateChatSession(ctx.chat.id);
       ctx.sessions = {
         chat: JSON.parse(chatSession.dataValues.value),
-        user: {},
+        user: JSON.parse(chatSession.dataValues.value),
         commit: async () => {
           await this.updateChatSession(ctx.chat.id, ctx.sessions.chat);
         }
@@ -32,7 +32,7 @@ export class SessionService {
   private async findOrCreateChatSession(chatId: number): Promise<SessionModel> {
     const [session, created] = await this.dataService.sessionModel.findOrCreate({
       where: { chatId, isUser: false },
-      defaults: { value: '{}' }
+      defaults: { value: '{"scene":null,"stage":null,"properties":null}' }
     });
     return session;
   }

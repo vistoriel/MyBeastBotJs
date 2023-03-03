@@ -1,7 +1,9 @@
 import { Context } from "telegraf";
 
 export interface Session {
-  [key: string]: any
+  scene: string | null
+  stage: number | string | null
+  properties: any
 }
 
 export interface ExtendedContext extends Context {

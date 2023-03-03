@@ -22,7 +22,7 @@ export class DuelWidget {
   @Command('duel')
   async duelCommand(@Ctx() ctx: ExtendedContext) {
     console.log('DUEL WIDGET');
-    ctx.sessions.chat.bar = 'hello world'
+    ctx.sessions.chat.properties = 'hello'
     console.log(ctx.sessions);
     ctx.sessions.commit()
   }
