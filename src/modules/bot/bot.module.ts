@@ -14,7 +14,7 @@ import { MiddlewaresModule } from '../middlewares/middlewares.module';
     TelegrafModule.forRootAsync({
       useFactory: async (configService: ConfigService, sessionService: SessionService) => ({
         token: configService.get<string>('BOT_TOKEN'),
-        middlewares: [sessionService.middleware()]
+        middlewares: [sessionService.middleware()],
       }),
       imports: [DatabaseModule, MiddlewaresModule],
       inject: [ConfigService, SessionService],

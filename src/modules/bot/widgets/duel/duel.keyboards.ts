@@ -1,9 +1,14 @@
 import { CallbackDataFactory } from 'src/utils/keyboard';
 import { Markup } from 'telegraf';
 
-const tameCDF = CallbackDataFactory.new('spawn', ['beastId']);
+export const duelCDF = CallbackDataFactory.new('duel', ['playerAId', 'playerBId']);
 
-export function getTameKeyboard(beastId) {
-  return Markup.inlineKeyboard([[Markup.button.callback('Спробувати приручити', tameCDF.prepare('tame', beastId))]])
-    .reply_markup;
+export function getRequestKeyboard(playerAId: number, playerBId: number) {
+  return Markup.inlineKeyboard([
+    [
+      Markup.button.callback('⚔️ Прийняти', duelCDF.prepare('accept', playerAId.toString(), playerBId.toString())), 
+      Markup.button.callback('🚫 Відмовитись', duelCDF.prepare('refuse', playerAId.toString(), playerBId.toString()))
+    ],
+    [Markup.button.callback('✌️ Відізвати', duelCDF.prepare('revoke', playerAId.toString(), playerBId.toString()))]
+  ]).reply_markup;
 }

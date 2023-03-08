@@ -17,7 +17,7 @@ export class SpawnWidget {
 
   @Command('spawn')
   async spawnCommand(@Ctx() ctx: Context) {
-    const beast = await this.dataService.spawn(ctx.chat.id, await this.imageService.generateBeastImage());
+    const beast = await this.dataService.spawnBeast(ctx.chat.id, await this.imageService.generateBeastImage());
     await ctx.replyWithPhoto(beast.image, {
       caption: await renderView('spawn', 'prompt', { beast }),
       reply_markup: getTameKeyboard(beast.id),
@@ -27,14 +27,14 @@ export class SpawnWidget {
 
   @Action(CallbackDataFactory.filter('spawn', 'tame'))
   async tameCallback(@Ctx() ctx: Context) {
-    const userBeast = await this.dataService.findByUserAndChat(ctx.callbackQuery.from.id, ctx.chat.id);
+    const userBeast = await this.dataService.findBeastByUserAndChat(ctx.callbackQuery.from.id, ctx.chat.id);
     if (userBeast) {
       await ctx.answerCbQuery('У тебе вже є чудовисько');
       return;
     }
 
     const callbackData = CallbackDataFactory.parse(ctx.callbackQuery.data);
-    const beast = await this.dataService.findById(callbackData.data.beastId);
+    const beast = await this.dataService.findBeastById(callbackData.data.beastId);
     if (!beast) throw Error('lol');
 
     if (chance.bool({ likelihood: beast.tameChance * 100 })) {

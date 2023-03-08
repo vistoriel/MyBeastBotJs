@@ -18,13 +18,13 @@ export class SessionModel extends Model {
 
   @Column({
     type: DataType.BOOLEAN,
-    allowNull: false
+    allowNull: false,
   })
   isUser: boolean;
 
   @Column({
     type: DataType.TEXT,
-    allowNull: false
+    allowNull: false,
   })
   value: string;
 }

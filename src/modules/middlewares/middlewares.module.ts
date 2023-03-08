@@ -3,15 +3,9 @@ import { SessionService } from './chat-session/session.service';
 import { DatabaseModule } from '@database/database.module';
 
 @Module({
-  imports: [
-    DatabaseModule
-  ],
+  imports: [DatabaseModule],
   controllers: [],
-  providers: [
-    SessionService
-  ],
-  exports: [
-    SessionService
-  ]
+  providers: [SessionService],
+  exports: [SessionService],
 })
 export class MiddlewaresModule {}

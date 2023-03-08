@@ -8,18 +8,18 @@ import { SessionModel } from '@database/models';
 export class DataService {
   constructor(
     @InjectModel(BeastModel) public beastModel: typeof BeastModel,
-    @InjectModel(SessionModel) public sessionModel: typeof SessionModel
+    @InjectModel(SessionModel) public sessionModel: typeof SessionModel,
   ) {}
 
-  async findById(id: number): Promise<BeastModel> {
+  async findBeastById(id: number): Promise<BeastModel> {
     return this.beastModel.findOne({ where: { id } });
   }
 
-  async findByUserAndChat(userId: number, chatId: number): Promise<BeastModel> {
+  async findBeastByUserAndChat(userId: number, chatId: number): Promise<BeastModel> {
     return this.beastModel.findOne({ where: { userId, chatId } });
   }
 
-  async spawn(chatId: number, image?: string): Promise<BeastModel> {
+  async spawnBeast(chatId: number, image?: string): Promise<BeastModel> {
     return this.beastModel.create({
       chatId,
       image,

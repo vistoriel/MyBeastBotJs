@@ -18,9 +18,10 @@ export class InfoWidget {
 
   @Command('beast')
   async startCommand(@Ctx() ctx: Context) {
-    const beast = await this.dataService.findByUserAndChat(ctx.from.id, ctx.chat.id);
+    const beast = await this.dataService.findBeastByUserAndChat(ctx.from.id, ctx.chat.id);
     if (!beast) {
       await ctx.reply(await renderView('info', 'failed', {}));
+      return;
     }
 
     await ctx.replyWithPhoto(beast.image ? beast.image : this.imageService.default, {
@@ -38,7 +39,7 @@ export class InfoWidget {
       return;
     }
 
-    const beast = await this.dataService.findById(callbackData.data.beastId);
+    const beast = await this.dataService.findBeastById(callbackData.data.beastId);
     if (!beast) {
       await ctx.answerCbQuery('Цього чудовиська вже не існує');
       return;
@@ -58,7 +59,7 @@ export class InfoWidget {
       return;
     }
 
-    const beast = await this.dataService.findById(callbackData.data.beastId);
+    const beast = await this.dataService.findBeastById(callbackData.data.beastId);
     if (!beast) {
       await ctx.answerCbQuery('Цього чудовиська вже не існує');
       return;

@@ -1,0 +1,6 @@
+<b><%= playerA.first_name %> визвала(в) на дуель <%= playerB.first_name %> (@<%= playerB.username %>)!</b> 
+
+Щоб почати змагання, <%= playerB.first_name %> потрібно погодитись на цей виклик. Якщо <%= playerA.first_name %> передумає, то зможе відізвати свою пропозицію до того як <%= playerB.first_name %> відповість.
+
+<% if (isSceneEmpty) { %><i>Чекаємо підтвердження від <%= playerB.first_name %>...</i>
+<% } else { %><i>Чекаємо підтвердження від <%= playerB.first_name %> та завершення поточної події...</i><% } %>
